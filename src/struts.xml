@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<!-- 指定Struts 2配置文件的根元素 -->
+<struts>
+<!-- 开发者模式 -->
+<constant name="struts.devMode" value="true"></constant>
+<!-- 指定全局国际化资源文件 -->
+<constant name="struts.custom.i18n.resources" value="mess"/>	
+
+<constant name="struts.action.excludePattern" value="/ckfinder.*"></constant>
+	
+<package name="chen" extends="struts-default" >
+	
+   <default-action-ref name="NotFound"></default-action-ref>
+  <!-- 进入首页的Action --> 
+   <action name="index" class="org.chen.action.IndexAction">
+       <result name="success">/index.jsp</result>
+   </action>
+   <!-- 获取Publisher List 
+      返回字节流，用以Ajax操作-->
+   <action name="getPublisherAction" class="GetPublisher">
+      <result name="success" type="stream">
+          <param name="contentType">text/html</param>
+          <param name="inputName">result</param>
+      </result>
+   </action>
+ <!-- 添加书 -->  
+ <action name="addBookAction" class="addBook">
+    <result name="success">/test.html</result>
+    <result name="error">/NotFound.html</result>
+ </action>  
+ 
+   <action name="NotFound">
+        <result>
+        /NotFound.html
+        </result>
+   </action>
+</package>
+</struts>
