@@ -8,15 +8,15 @@
 <constant name="struts.devMode" value="true"></constant>
 <!-- 指定全局国际化资源文件 -->
 <constant name="struts.custom.i18n.resources" value="mess"/>	
-
+<!-- 不对ckfinder进行拦截 -->
 <constant name="struts.action.excludePattern" value="/ckfinder.*"></constant>
 	
 <package name="chen" extends="struts-default" >
-	
+	<!-- 默认action,404 -->
    <default-action-ref name="NotFound"></default-action-ref>
   <!-- 进入首页的Action --> 
    <action name="index" class="org.chen.action.IndexAction">
-       <result name="success">/index.jsp</result>
+       <result name="success">/WEB-INF/Content/index.jsp</result>
    </action>
    <!-- 获取Publisher List 
       返回字节流，用以Ajax操作-->
@@ -26,6 +26,10 @@
           <param name="inputName">result</param>
       </result>
    </action>
+<!-- 详情页面的action -->  
+    <action name="bookDetailAction" class="org.chen.action.BookDetailAction">
+       <result name="success">/detailBook.jsp</result>
+    </action> 
  <!-- 添加书 -->  
  <action name="addBookAction" class="addBook">
     <result name="success">/test.html</result>

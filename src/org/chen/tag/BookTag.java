@@ -18,7 +18,7 @@ import org.springframework.web.servlet.tags.RequestContextAwareTag;
 public class BookTag extends RequestContextAwareTag{
 	
 	private int num;
-    private int catId;
+    private int cat;
 	private BasicBookDao basicBookDao;
 	
 	public int getNum() {
@@ -27,14 +27,15 @@ public class BookTag extends RequestContextAwareTag{
 	public void setNum(int num) {
 		this.num = num;
 	}
-	public int getCatId() {
-		return catId;
-	}
-	public void setCatId(int catId) {
-		this.catId = catId;
-	}
 
+    
 
+	public int getCat() {
+		return cat;
+	}
+	public void setCat(int cat) {
+		this.cat = cat;
+	}
 	@Override
 	protected int doStartTagInternal() throws Exception {
 		
@@ -42,20 +43,20 @@ public class BookTag extends RequestContextAwareTag{
 		JspWriter writer = pageContext.getOut();
 		basicBookDao =
 		(BasicBookDao) this.getRequestContext().getWebApplicationContext().getBean("basicBookDao");
-		List<Book> books = basicBookDao.getBooksByCateId(catId, num);
+		List<Book> books = basicBookDao.getBooksByCateId(cat, num);
 		for(Book b:books)
 		{
 			writer.write("<s:url action='#' id='BookDetail' >");
 			writer.write("<s:param name='isbn'>");
-			writer.write(b.getIsbn());
+			//writer.write(b.getIsbn());
 			writer.write("</s:param>");
 			writer.write("</s:url>");
 			writer.write("<div class='book_item'>");
 			writer.write("<s:a href='%{BookDetail}'>");
 			writer.write("<img src='");
-			writer.write(b.getImgPath()+"' ");
+			writer.write(b.getImgPath()+"' height=190 width=130 ");
 			writer.write("onmouseover='this.style.borderColor=#234567,this.style.opacity= 0.75;'");
-			writer.write(" onMouseout='this.style.borderColor=#ffffff,this.style.opacity= 1.0;'");
+			writer.write(" onmouseout='this.style.borderColor=#ffffff,this.style.opacity= 1.0;'");
 			writer.write(" />");
 			writer.write("</s:a>");
 			writer.write("<div class='book_item_intro'>");

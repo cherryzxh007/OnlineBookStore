@@ -1,10 +1,13 @@
 package org.chen.table;
+
+import java.io.Serializable;
+
 /**
  * 数据库表Publisher的类的映射
  * @author ChenZhongPu
  *
  */
-public class Publisher {
+public class Publisher implements Serializable{
 
 	private int id;
 	private String name;

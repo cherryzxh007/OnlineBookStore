@@ -11,15 +11,17 @@ import java.util.Locale;
 
 
 
+
+
 import org.apache.struts2.ServletActionContext;
 import org.chen.Dao.CategoryDao;
 import org.chen.Dao.GetRandomReco;
 import org.chen.Dao.RecoInterfaceDao;
 import org.chen.table.Book;
 import org.chen.table.Category;
-import org.chen.table.IndexInfo;
+import org.chen.table.IndexBlock;
 import org.chen.util.BookConstont;
-import org.chen.util.XMLReader;
+import org.chen.util.GetIndexBlock;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -36,6 +38,15 @@ public class IndexAction extends ActionSupport{
 	
 	private CategoryDao categoryDao;
 	private RecoInterfaceDao recoDao;
+	private GetIndexBlock getIndexBlock;
+	private List<IndexBlock> blocks;
+	
+	public List<IndexBlock> getBlocks() {
+		return blocks;
+	}
+	public void setBlocks(List<IndexBlock> blocks) {
+		this.blocks = blocks;
+	}
 	/**
 	 * 实现自分类的显示
 	 * 放在session
@@ -70,8 +81,7 @@ public class IndexAction extends ActionSupport{
 	 */
 	public void showMain() throws Exception
 	{
-		List<IndexInfo> indexs = XMLReader.readXML();
-		ActionContext.getContext().getSession().put("mainPage",indexs);
+		setBlocks(getIndexBlock.GetBlocks());
 	}
 	/**
 	 * Action默认方法。
@@ -85,8 +95,10 @@ public class IndexAction extends ActionSupport{
 		WebApplicationContextUtils.getWebApplicationContext(ServletActionContext.getServletContext());
 		categoryDao = (CategoryDao) ctx.getBean("cateDao");
 		recoDao = (GetRandomReco) ctx.getBean("recoDao");
+		getIndexBlock = (GetIndexBlock) ctx.getBean("getBlock");
 	    showSubCate();
 	    showReco();
+	    showMain();
 		return SUCCESS;
 		
 	}

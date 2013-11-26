@@ -1,9 +1,8 @@
 package org.chen.util;
 
-import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import org.chen.table.IndexInfo;
 import org.jdom.Document;
@@ -18,7 +17,7 @@ import org.jdom.input.SAXBuilder;
  */
 public class XMLReader {
 	
-	private static final String XML_PATH = "WEB-INF/web.xml";
+	private static final String XML_PATH = "IndexConfig.xml";
    /**
     *  
     * 读取XML得到有关首页显示的列表
@@ -30,8 +29,8 @@ public class XMLReader {
 		try {
 			Document doc;
 			SAXBuilder saxBuilder = new SAXBuilder();
-			FileInputStream fin = new FileInputStream(XML_PATH);
-			doc = saxBuilder.build(fin);
+			InputStream is = new XMLReader().getClass().getResourceAsStream("/"+XML_PATH);
+			doc = saxBuilder.build(is);
 			List<IndexInfo> indexs = new ArrayList<IndexInfo>();
 			// 获取根节点
 			Element root = doc.getRootElement();

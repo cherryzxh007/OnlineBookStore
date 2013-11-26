@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<index>
+<!-- 
+定义首页信息的XML文件。
+name:显示的名字；
+id:对应的数据库里分类ID(只能是子分类)；
+img:大图片路径。（如果是#表示不显示大图）
+ -->
+  <part>
+    <name>Life is Beauty</name>
+    <id>500031</id>
+    <img>CKFinderJava/userfiles/images/lifeOne.jpg</img>
+  </part>
+  
+  <part>
+     <name>Laws in Everywhere</name>
+     <id>500024</id>
+     <img>#</img>
+  </part>
+  
+    <part>
+      <name>Batman Around Earth</name>
+      <id>500020</id>
+      <img>images/batman.jpg</img>
+  </part>
+  
+  <part>
+      <name>Spark Your Coding</name>
+      <id>500039</id>
+      <img>#</img>
+  </part>
+  
+</index>

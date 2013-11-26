@@ -32,7 +32,7 @@ public class BasicBookDao {
 	{
 		try {
 			List<Book> books = new ArrayList<Book>();
-			List rows = jt.queryForList("select isbn form book_category where category_id=? offset 0 limit ?",
+			List rows = jt.queryForList("select isbn from book_category where category_id=? offset 0 limit ?",
 					new Object[]{id,num});
 			Iterator iterator = rows.iterator();
 			while(iterator.hasNext())
@@ -41,11 +41,13 @@ public class BasicBookDao {
 				Book book = getIndexBookByIsbn(map.get("isbn").toString());
 				books.add(book);	
 			}
+			return books;
 			
 		} catch (Exception e) {
-			
+			e.printStackTrace();
+			return null;
 		}
-		return null;
+		
 	}
 	/**
 	 * 通过ISBN获取首页所需书的信息,
@@ -89,7 +91,7 @@ public class BasicBookDao {
 						book.setEdition(rs.getShort("edition"));
 						book.setImgPath(rs.getString("coverimage_path"));
 						book.setTitle(rs.getString("title"));
-						
+						book.setAuthor(getAuthorByIsbn(isbn));
 					}
 			
 		});
@@ -106,15 +108,23 @@ public class BasicBookDao {
 		try {
 			List<Author> authors = new ArrayList<Author>();
 			
-			List rows = jt.queryForList("select * from BookAuthorView where isbn=", 
-					new Object[]{});
-		    
-			// TODO: handle exception
+			List rows = jt.queryForList("select * from BookAuthorView where isbn=?", 
+					new Object[]{isbn});   
+	        Iterator iterator = rows.iterator();
+            while(iterator.hasNext())
+            {
+            	Author author = new Author();
+            	Map map = (Map) iterator.next();
+            	author.setAuthor_name(map.get("author_name").toString());
+            	authors.add(author);
+            }
+            return authors;
 		}catch(Exception e)
 		{
-			
+			e.printStackTrace();
+			return null;	
 		}
-		return null;
+		
 	}
 	
 }

@@ -1,5 +1,6 @@
 package org.chen.table;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -7,7 +8,7 @@ import java.util.List;
  * @author ChenZhongPu
  *
  */
-public class Book {
+public class Book implements Serializable{
 	/**
 	 * isbn , title «±ÿ–Î Ù–‘
 	 */

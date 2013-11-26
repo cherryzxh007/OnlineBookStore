@@ -1,5 +1,8 @@
 package org.chen.action;
 
+import java.util.Locale;
+
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 /**
  * 书本详情的Action;
@@ -20,7 +23,8 @@ public class BookDetailAction extends ActionSupport {
 	}
 	public String execute() throws Exception{
 		
-		
+		// 设置地区，语言
+				ActionContext.getContext().setLocale(Locale.US);
 		return SUCCESS;
 	}
 }
