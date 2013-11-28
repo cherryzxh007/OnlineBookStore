@@ -45,7 +45,7 @@ public class GetRandomReco implements RecoInterfaceDao {
 				if(title.length()>20) title = title.substring(0, 17);
 				book.setTitle(title);
 				book.setPrice((float)map.get("price"));
-				//book.setImgPath(map.get("coverimage_path").toString());
+				book.setImgPath(map.get("coverimage_path").toString());
 				books.add(book);
 				
 			}

@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.chen.table.Author;
 import org.chen.table.Book;
+import org.chen.util.BookConstont;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowCallbackHandler;
 
@@ -20,9 +21,17 @@ import org.springframework.jdbc.core.RowCallbackHandler;
 public class BasicBookDao {
 
 	private JdbcTemplate jt;
+	private PublisherDao publisherDao;
+	
 	public void setJt(JdbcTemplate jt) {
 		this.jt = jt;
 	}
+	
+	public void setPublisherDao(PublisherDao publisherDao) {
+		this.publisherDao = publisherDao;
+	}
+
+
 	/**
 	 * 根据Category的id返回书
 	 * @param id表示分类的id,num表示返回书的本数
@@ -66,7 +75,7 @@ public class BasicBookDao {
 						book.setImgPath(resultSet.getString("coverimage_path"));
 						book.setPrice(resultSet.getFloat("price"));
 						String title = resultSet.getString("title");
-						if(title.length()>20) title = title.substring(0,17);
+						if(title.length()>18) title = title.substring(0,17);
 						book.setTitle(title);
 					}
 			
@@ -75,7 +84,8 @@ public class BasicBookDao {
 	}
 	
 	/**
-	 * 利用isbn获取book的详情
+	 * 利用isbn获取book的详情；
+	 * 在书本详情页进行展示。
 	 * @param isbn
 	 * @return
 	 */
@@ -84,18 +94,28 @@ public class BasicBookDao {
 		jt.query("select * from book where isbn=?", 
 				new Object[]{isbn},
 				new RowCallbackHandler(){
+					@SuppressWarnings("deprecation")
 					@Override
 					public void processRow(ResultSet rs) throws SQLException {
 						book.setIsbn(rs.getString("isbn"));
 						book.setPrice(rs.getFloat("price"));
 						book.setEdition(rs.getShort("edition"));
-						book.setImgPath(rs.getString("coverimage_path"));
+						book.setImgPath(BookConstont.BIMG+isbn+BookConstont.IMGSUFFIX);
 						book.setTitle(rs.getString("title"));
 						book.setAuthor(getAuthorByIsbn(isbn));
+						book.setPublisher_name(publisherDao.getNamebyId(rs.getInt("publisher_id")));
+						book.setIntro(rs.getString("book_intro"));
+						String intro = book.getIntro();
+						book.setIntroP1(intro.substring(0, 500));
+						book.setIntroP2(intro.substring(501, 1000));
+						book.setIntroP3(intro.substring(1001, 1500));
+						book.setIntroP4(intro.substring(1501,1878));
+					    System.out.println(intro.length());
+						book.setPublisher_date(rs.getDate("publication_date").toString());
 					}
 			
 		});
-		return null;
+		return book;
 	}
 	
 	/**

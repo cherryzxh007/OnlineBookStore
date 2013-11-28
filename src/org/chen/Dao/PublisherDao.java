@@ -63,5 +63,16 @@ public class PublisherDao {
 	    		 new Object[]{pubName}, java.lang.Integer.class);
 		return id;
 	}
+	/**
+	 * 通过出版社id找名字。
+	 * @param id
+	 * @return
+	 */
+	public String getNamebyId(final int id)
+	{
+		String name = jt.queryForObject("select publisher_name from publisher where publisher_id=?",
+				new Object[]{id}, java.lang.String.class);
+		return name;
+	}
 
 }

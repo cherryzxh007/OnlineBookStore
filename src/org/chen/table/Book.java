@@ -24,6 +24,11 @@ public class Book implements Serializable{
 
 	private List<Author> author;
 	private String publisher_name;
+	private String introP1;
+	private String introP2;
+	private String introP3;
+	private String introP4;
+	
 	public String getIsbn() {
 		return isbn;
 	}
@@ -93,6 +98,29 @@ public class Book implements Serializable{
 	public void setPublisher_name(String publisher_name) {
 		this.publisher_name = publisher_name;
 	}
-    
+	public String getIntroP1() {
+		return introP1;
+	}
+	public void setIntroP1(String introP1) {
+		this.introP1 = introP1;
+	}
+	public String getIntroP2() {
+		return introP2;
+	}
+	public void setIntroP2(String introP2) {
+		this.introP2 = introP2;
+	}
+	public String getIntroP3() {
+		return introP3;
+	}
+	public void setIntroP3(String introP3) {
+		this.introP3 = introP3;
+	}
+	public String getIntroP4() {
+		return introP4;
+	}
+	public void setIntroP4(String introP4) {
+		this.introP4 = introP4;
+	}
 	
 }
