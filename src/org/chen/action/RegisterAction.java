@@ -10,7 +10,7 @@ import org.chen.util.ValidateEmail;
 
 import com.opensymphony.xwork2.ActionSupport;
 /**
- * ÓÃ»§½øĞĞ×¢²áÊ±µÄaction
+ * æ‰§è¡Œæ³¨å†Œçš„action
  * @author ChenZhongPu
  *
  */
@@ -39,17 +39,17 @@ public class RegisterAction extends ActionSupport {
 		this.result = result;
 	}
 /**
- * ¸ÃactionµÄÄ¬ÈÏ·½·¨£¬Ìí¼ÓÓÃ»§¡£
+ * é»˜è®¤æ–¹æ³•ï¼Œæ³¨å†Œ
  */
 	public String execute(){
 		
-		// ÏÈ¶ÔÓÃ»§Í·ÏñËæ»úÉú³É
+		
 		customer.setIconid((int)(Math.random()* BookConstont.ALLICON));
 		customerDao.add(customer);
 		return SUCCESS;			
 	}
 	/**
-	 * ×¢²áÊ±½øĞĞÓÊÏäÓĞĞ§ĞÔÑéÖ¤¡£
+	 * é€šè¿‡ajaxäº¤äº’å®Œæˆemailçš„æœ‰æ•ˆæ€§éªŒè¯
 	 * @return
 	 */
 	public String valiEmail()

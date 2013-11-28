@@ -10,7 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 
 /**
- * 顾客的Dao
+ * 椤惧 Dao
  * @author ChenZhongPu
  *
  */
@@ -22,9 +22,9 @@ public class CustomerDao {
 		this.jt = jt;
 	}
 	/**
-	 * 判断是否有相同的邮箱
+	 * 
 	 * @param email
-	 * @return true表示唯一，可以插入；false表示已有相同。
+	 * @return
 	 */
 	public boolean isUnique(String email)
 	{
@@ -34,7 +34,7 @@ public class CustomerDao {
 		return true;
 	}
 	/**
-	 * 添加用户。注册时使用。
+	 * 
 	 * @param customer
 	 */
 	public void add(final Customer customer)
@@ -60,7 +60,9 @@ public class CustomerDao {
 	}
 	
 	/**
-	 * 登录时判断用户是否合法。
+	 * 
+	 * @param email
+	 * @param pwd
 	 * @return
 	 */
 	public boolean isValid(String email, String pwd)
@@ -76,7 +78,7 @@ public class CustomerDao {
 		return false;
 	}
 	/**
-	 * 修改密码，暂不实现
+	 * 
 	 * @param newPwd
 	 */
 	public void changePwd(String newPwd)

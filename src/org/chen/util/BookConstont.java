@@ -1,6 +1,6 @@
 package org.chen.util;
 /**
- * 定义系统常见的常量
+ * 瀹氫箟绯荤粺甯搁噺
  * @author ChenZhongPu
  *
  */
