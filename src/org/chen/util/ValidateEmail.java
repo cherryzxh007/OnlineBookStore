@@ -7,7 +7,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 /**
- * Ê¹ÓÃWebService½øĞĞÓÊÏäÊÇ·ñÕæÊµ´æÔÚµÄ¹¤¾ßÀà¡£
+ * Ê¹ï¿½ï¿½WebServiceï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ÚµÄ¹ï¿½ï¿½ï¿½ï¿½à¡£
  * @author ChenZhongPu
  *
  */
@@ -16,9 +16,9 @@ public class ValidateEmail {
 	private static final String URL = "http://webservice.webxml.com.cn/WebServices/ValidateEmailWebService.asmx/ValidateEmailAddress?theEmail=";
 	private static final String TAG = "</unsignedByte>";
 	/**
-	 * Í¨¹ıwebservice ÑéÖ¤ÓÊÏäµÄÕæÊµĞÔ¡£
-	 * @param email ´ıÑéÖ¤µÄÓÊÏä¡£
-	 * @return true±íÊ¾ÓĞĞ§¡£
+	 * Í¨ï¿½ï¿½webservice ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½Ô¡ï¿½
+	 * @param email ï¿½ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½ï¿½ï¿½ä¡£
+	 * @return trueï¿½ï¿½Ê¾ï¿½ï¿½Ğ§ï¿½ï¿½
 	 */
 	public static boolean validateByWeb(String email)
 	{
@@ -43,7 +43,7 @@ public class ValidateEmail {
 			xmlString += line;
 			}
 			int index = xmlString.indexOf(TAG);
-			if(xmlString.substring(index-1, index).equals("1"))
+			if(xmlString.substring(index-1, index).equals("1")||xmlString.substring(index-1, index).equals("6"))
 			{
 				return true;
 			}

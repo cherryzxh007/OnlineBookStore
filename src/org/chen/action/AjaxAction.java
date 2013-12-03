@@ -9,7 +9,7 @@ import org.chen.util.GetPublisher;
 
 import com.opensymphony.xwork2.ActionSupport;
 /**
- * ´¦ÀíAjaxÊÂ¼þ
+ * ï¿½ï¿½ï¿½ï¿½Ajaxï¿½Â¼ï¿½
  * @author ChenZhongPu
  *
  */
@@ -27,7 +27,7 @@ public class AjaxAction extends ActionSupport {
 
 
 	/**
-	 * ·µ»ØAjaxËùÐèµÄpublisher×Ö½ÚÁ÷
+	 * ï¿½ï¿½ï¿½ï¿½Ajaxï¿½ï¿½ï¿½ï¿½ï¿½publisherï¿½Ö½ï¿½ï¿½ï¿½
 	 * @return inputsteam
 	 */
 	public InputStream getResult() {
@@ -35,7 +35,7 @@ public class AjaxAction extends ActionSupport {
 	}
 
   /**
-   * Ä¬ÈÏ·½·¨£º»ñÈ¡PublisherÁÐ±í  
+   * Ä¬ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡Publisherï¿½Ð±ï¿½  
    */
 	public String execute() throws Exception
 	{

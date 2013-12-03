@@ -9,12 +9,13 @@ import java.util.Map;
 
 import org.chen.table.Author;
 import org.chen.table.Book;
+import org.chen.table.Rating;
 import org.chen.util.BookConstont;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowCallbackHandler;
 
 /**
- * BookÏà¹Ø»ù´¡Dao
+ * Bookï¿½ï¿½Ø»ï¿½Dao
  * @author ChenZhongPu
  *
  */
@@ -22,7 +23,7 @@ public class BasicBookDao {
 
 	private JdbcTemplate jt;
 	private PublisherDao publisherDao;
-	
+	private CustomerDao customerDao;
 	public void setJt(JdbcTemplate jt) {
 		this.jt = jt;
 	}
@@ -31,10 +32,15 @@ public class BasicBookDao {
 		this.publisherDao = publisherDao;
 	}
 
+    
+	public void setCustomerDao(CustomerDao customerDao) {
+		this.customerDao = customerDao;
+	}
 
 	/**
-	 * ¸ù¾İCategoryµÄid·µ»ØÊé
-	 * @param id±íÊ¾·ÖÀàµÄid,num±íÊ¾·µ»ØÊéµÄ±¾Êı
+	 * è·å–åˆ†ç±»idä¸‹çš„æœ€å¤šnumæœ¬ä¹¦
+	 * @param id
+	 * @param num
 	 * @return
 	 */
 	public List<Book> getBooksByCateId(int id,int num)
@@ -59,8 +65,8 @@ public class BasicBookDao {
 		
 	}
 	/**
-	 * Í¨¹ıISBN»ñÈ¡Ê×Ò³ËùĞèÊéµÄĞÅÏ¢,
-	 * isbn,Í¼Æ¬Â·¾¶£¬¼Û¸ñ
+	 * Í¨ï¿½ï¿½ISBNï¿½ï¿½È¡ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢,
+	 * isbn,Í¼Æ¬Â·ï¿½ï¿½ï¿½ï¿½ï¿½Û¸ï¿½
 	 * @return
 	 */
 	public Book getIndexBookByIsbn(final String isbn)
@@ -75,7 +81,7 @@ public class BasicBookDao {
 						book.setImgPath(resultSet.getString("coverimage_path"));
 						book.setPrice(resultSet.getFloat("price"));
 						String title = resultSet.getString("title");
-						if(title.length()>18) title = title.substring(0,17);
+						if(title.length()>18) title = title.substring(0,16);
 						book.setTitle(title);
 					}
 			
@@ -84,8 +90,8 @@ public class BasicBookDao {
 	}
 	
 	/**
-	 * ÀûÓÃisbn»ñÈ¡bookµÄÏêÇé£»
-	 * ÔÚÊé±¾ÏêÇéÒ³½øĞĞÕ¹Ê¾¡£
+	 * ï¿½ï¿½ï¿½ï¿½isbnï¿½ï¿½È¡bookï¿½ï¿½ï¿½ï¿½ï¿½é£»
+	 * ï¿½ï¿½ï¿½é±¾ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½Õ¹Ê¾ï¿½ï¿½
 	 * @param isbn
 	 * @return
 	 */
@@ -110,8 +116,17 @@ public class BasicBookDao {
 						book.setIntroP2(intro.substring(501, 1000));
 						book.setIntroP3(intro.substring(1001, 1500));
 						book.setIntroP4(intro.substring(1501,1878));
-					    System.out.println(intro.length());
+						book.setPage(rs.getInt("page"));
 						book.setPublisher_date(rs.getDate("publication_date").toString());
+						if(isReviewed(isbn))
+						{
+							book.setRatings(getRatings(isbn));
+							book.setReviewed(true);
+						}
+						else {
+							book.setReviewed(false);
+						}
+						
 					}
 			
 		});
@@ -119,7 +134,7 @@ public class BasicBookDao {
 	}
 	
 	/**
-	 * ÀûÓÃisbn´ÓÊı¾İ¿âµÄÊÓÍ¼»ñÈ¡¸ÃÊéµÄ×÷ÕßĞÅÏ¢
+	 * ï¿½ï¿½ï¿½ï¿½isbnï¿½ï¿½ï¿½ï¿½İ¿ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	 * @param isbn
 	 * @return
 	 */
@@ -136,6 +151,7 @@ public class BasicBookDao {
             	Author author = new Author();
             	Map map = (Map) iterator.next();
             	author.setAuthor_name(map.get("author_name").toString());
+            	author.setAuthor_intro(map.get("author_intro").toString());
             	authors.add(author);
             }
             return authors;
@@ -144,6 +160,51 @@ public class BasicBookDao {
 			e.printStackTrace();
 			return null;	
 		}
+		
+	}
+	
+	public boolean isReviewed(String isbn){
+		
+		int rows = jt.queryForInt("select Count(*) from book_review where isbn=?", 
+				new Object[]{isbn});
+		if(rows>0) return true;
+		return false;
+	}
+	/**
+	 * è·å–è¯¥ä¹¦çš„è¯„è®ºåˆ—è¡¨ï¼Œå–æŒ‰æ—¶é—´æ–°æ—§ï¼Œå‰5ä¸ª
+	 * @param isbn
+	 * @return
+	 */
+	public List<Rating> getRatings(String isbn)
+	{
+		List<Rating> ratings = new ArrayList<Rating>();
+		List list = jt.queryForList("select * from book_review where isbn=? order by comment_time DESC offset 0 limit 5", 
+				new Object[]{isbn});
+		Iterator iterator = list.iterator();
+	    while(iterator.hasNext())
+	    {
+	    	Rating rating = new Rating();
+	    	Map map = (Map) iterator.next();
+	    	rating.setComment(map.get("book_commetn").toString());
+	    	int userId = (int)map.get("customer_id");
+	        rating.setCustomerName(customerDao.getUserNameById(userId));
+	        rating.setStar((int)map.get("star_level"));
+	    	ratings.add(rating);
+	    	
+	    }
+	    return ratings;
+	}
+	/**
+	 * æ ¹æ®isbnè·å–æ‰€åœ¨åˆ†ç±»id
+	 * @param isbn
+	 * @return
+	 */
+	public int getCateIdbyIsbn(String isbn)
+	{
+		int id = jt.queryForObject("select category_id from book_category where isbn=?",
+				new Object[]{isbn}, 
+				java.lang.Integer.class);
+		return id;
 		
 	}
 	

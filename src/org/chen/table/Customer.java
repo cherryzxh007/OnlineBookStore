@@ -12,6 +12,7 @@ public class Customer {
 	private String alias;
 	private int iconid;
 	private String phone;
+	private String iconPath;
 	
 	/**
 	 * 
@@ -97,6 +98,13 @@ public class Customer {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+	public String getIconPath() {
+		return iconPath;
+	}
+	public void setIconPath(String iconPath) {
+		this.iconPath = iconPath;
+	}
+	
 	
 	
 }

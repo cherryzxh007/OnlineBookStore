@@ -30,18 +30,79 @@
     <action name="bookDetailAction" class="org.chen.action.BookDetailAction">
        <result name="success">/WEB-INF/Content/detailBook.jsp</result>
     </action> 
+<!-- 注册前的action -->
+    <action name="toSignAction" class="org.chen.action.RegisterAction"
+      method="toSign">
+       <result name="success">/WEB-INF/Content/signup.jsp</result>
+    </action>
 <!-- 注册时的action -->
     <action name="registerAction" class="org.chen.action.RegisterAction">
-        <result name="success">
+        <result name="success" type="chain">
+           <param name="actionName">index</param>
+           <param name="namespace">/</param>
+        </result>
+        <result name="error">
+         /WEB-INF/Content/signup.jsp
         </result>
     </action>
 <!-- 注册时对邮箱的验证,Ajax实现，返回流 -->
     <action name="valiMailWhenReg" class="org.chen.action.RegisterAction"
      method="valiEmail">
-        <result type="stream">
+        <result type="stream" name="success">
           <param name="contentType">text/html</param>
           <param name="inputName">result</param>
         </result>  
+    </action>
+<!-- 登录时的action -->
+    <action name="loginAction" class="org.chen.action.LoginAction">
+          <result name="success" type="redirectAction">
+           <param name="actionName">index</param>
+           <param name="namespace">/</param>
+         </result>
+         
+         <result name="error" type="redirectAction">
+             <param name="actionName">index</param>
+             <param name="namespace">/</param>
+         </result>
+    </action>
+<!-- 进入购物车 -->
+    <action name="toCartAction" class="org.chen.action.CheckAction">
+       <result name="success">/WEB-INF/Content/check_out.jsp</result>
+       <result name="ToLogin">/WEB-INF/Content/signin.jsp</result>
+    </action>
+<!-- 付款 -->
+    <action name="payAction" class="org.chen.action.PayAction">
+       <result name="success">/ad.html</result>
+    </action>
+<!-- 登录时的验证码 ,Ajax实现-->
+    <action name="codeAction" class="org.chen.action.LoginAction"
+      method="getCode">
+        <result name="success" type="stream">
+            <param name="contentType">text/html</param>
+            <param name="inputName">result</param>
+        </result>
+    </action>
+<!-- 注销时 -->
+    <action name="logoutAction" class="org.chen.action.LoginAction"
+      method="signOut">
+       <result name="success" type="redirectAction">>
+           <param name="actionName">index</param>
+           <param name="namespace">/</param>
+       </result>
+    </action>
+<!-- 添加至购物车 -->
+    <action name="addCartAction" class="org.chen.action.AddCartAction">
+       <result type="stream" name="success">
+          <param name="contentType">text/html</param>
+          <param name="inputName">result</param>
+       </result> 
+    </action>
+
+<!-- 一个分类的所有图书action -->
+    <action name="searchCateAction" class="org.chen.action.SearchCateAction">
+        <result name="success">
+          /WEB-INF/Content/bookList.jsp
+        </result>
     </action>
  <!-- 添加书 -->  
  <action name="addBookAction" class="addBook">

@@ -4,13 +4,13 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Êý¾Ý¿â±íBookµÄÀàµÄÓ³Éä
+ * ï¿½ï¿½Ý¿ï¿½ï¿½Bookï¿½ï¿½ï¿½ï¿½ï¿½Ó³ï¿½ï¿½
  * @author ChenZhongPu
  *
  */
 public class Book implements Serializable{
 	/**
-	 * isbn , titleÊÇ±ØÐëÊôÐÔ
+	 * isbn , titleï¿½Ç±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 	private  String isbn;
 	private  String title;
@@ -21,14 +21,15 @@ public class Book implements Serializable{
 	private String intro;
 	private String imgPath;
 	private int stock_qty;
-
+    private List<Rating> ratings;
 	private List<Author> author;
 	private String publisher_name;
 	private String introP1;
 	private String introP2;
 	private String introP3;
 	private String introP4;
-	
+	private int page;
+	private boolean reviewed;
 	public String getIsbn() {
 		return isbn;
 	}
@@ -122,5 +123,24 @@ public class Book implements Serializable{
 	public void setIntroP4(String introP4) {
 		this.introP4 = introP4;
 	}
+	public List<Rating> getRatings() {
+		return ratings;
+	}
+	public void setRatings(List<Rating> ratings) {
+		this.ratings = ratings;
+	}
+	public boolean isReviewed() {
+		return reviewed;
+	}
+	public void setReviewed(boolean reviewed) {
+		this.reviewed = reviewed;
+	}
+	public int getPage() {
+		return page;
+	}
+	public void setPage(int page) {
+		this.page = page;
+	}
+	
 	
 }

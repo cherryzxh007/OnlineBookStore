@@ -8,9 +8,9 @@ import org.chen.table.IndexBlock;
 import org.chen.table.IndexInfo;
 
 /**
- * 工具类，返回首页Block
+ * 
  * @author ChenZhongPu
- * @see IndexBlock
+ *
  */
 public class GetIndexBlock {
 

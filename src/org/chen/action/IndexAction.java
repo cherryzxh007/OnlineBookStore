@@ -28,19 +28,36 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
-
 /**
- * ½øÈëÊ×Ò³Ëù½øÐÐµÄActionµÄ´¦Àí
+ * 
  * @author ChenZhongPu
  *
  */
 public class IndexAction extends ActionSupport{
 	
-	private CategoryDao categoryDao;
+	private CategoryDao cateDao;
 	private RecoInterfaceDao recoDao;
-	private GetIndexBlock getIndexBlock;
+	private GetIndexBlock getBlock;
 	private List<IndexBlock> blocks;
 	
+	public CategoryDao getCateDao() {
+		return cateDao;
+	}
+	public void setCateDao(CategoryDao cateDao) {
+		this.cateDao = cateDao;
+	}
+	public RecoInterfaceDao getRecoDao() {
+		return recoDao;
+	}
+	public void setRecoDao(RecoInterfaceDao recoDao) {
+		this.recoDao = recoDao;
+	}
+	public GetIndexBlock getGetBlock() {
+		return getBlock;
+	}
+	public void setGetBlock(GetIndexBlock getBlock) {
+		this.getBlock = getBlock;
+	}
 	public List<IndexBlock> getBlocks() {
 		return blocks;
 	}
@@ -48,27 +65,26 @@ public class IndexAction extends ActionSupport{
 		this.blocks = blocks;
 	}
 	/**
-	 * ÊµÏÖ×Ô·ÖÀàµÄÏÔÊ¾
-	 * ·ÅÔÚsession
+	 * 
 	 */
 	private void showSubCate()
 	{
 		
-		List<Category> cate1 = categoryDao.getSubCategories(BookConstont.ART);
+		List<Category> cate1 = cateDao.getSubCategories(BookConstont.ART);
 	    ActionContext.getContext().getSession().put("subcateArt", cate1);
-		List<Category> cate2 = categoryDao.getSubCategories(BookConstont.CHILDREN);
+		List<Category> cate2 = cateDao.getSubCategories(BookConstont.CHILDREN);
 		ActionContext.getContext().getSession().put("subcateChi", cate2);
-		List<Category> cate3 = categoryDao.getSubCategories(BookConstont.LITERATURE);
+		List<Category> cate3 = cateDao.getSubCategories(BookConstont.LITERATURE);
 		ActionContext.getContext().getSession().put("subcateLit", cate3);
-		List<Category> cate4 = categoryDao.getSubCategories(BookConstont.SOCAIL);
+		List<Category> cate4 = cateDao.getSubCategories(BookConstont.SOCAIL);
 		ActionContext.getContext().getSession().put("subcateSoc", cate4);
-		List<Category> cate5 = categoryDao.getSubCategories(BookConstont.LIFE);
+		List<Category> cate5 = cateDao.getSubCategories(BookConstont.LIFE);
 		ActionContext.getContext().getSession().put("subcateLif", cate5);
-		List<Category> cate6 = categoryDao.getSubCategories(BookConstont.TECH);
+		List<Category> cate6 = cateDao.getSubCategories(BookConstont.TECH);
 		ActionContext.getContext().getSession().put("subcateTec", cate6);	
 	}
 	/**
-	 * ÏÔÊ¾ÍÆ¼öÍ¼Êé
+	 * 
 	 */
 	public void showReco()
 	{
@@ -76,31 +92,25 @@ public class IndexAction extends ActionSupport{
 		ActionContext.getContext().getSession().put("recoBooks", books);
 	}
 	/**
-	 * ÊµÏÖÒ³ÃæÖ÷Ìå²¿·Ö
-	 * @throws Exception 
+	 * 
+	 * @throws Exception
 	 */
 	public void showMain() throws Exception
 	{
-		setBlocks(getIndexBlock.GetBlocks());
+		setBlocks(getBlock.GetBlocks());
 	}
-	/**
-	 * ActionÄ¬ÈÏ·½·¨¡£
-	 */
-	public String execute() throws Exception
-	{
-		// ÉèÖÃµØÇø£¬ÓïÑÔ
-		ActionContext.getContext().setLocale(Locale.US);
-		// µÃµ½SpringÈÝÆ÷
-		WebApplicationContext ctx =
-		WebApplicationContextUtils.getWebApplicationContext(ServletActionContext.getServletContext());
-		categoryDao = (CategoryDao) ctx.getBean("cateDao");
-		recoDao = (GetRandomReco) ctx.getBean("recoDao");
-		getIndexBlock = (GetIndexBlock) ctx.getBean("getBlock");
-	    showSubCate();
-	    showReco();
-	    showMain();
-		return SUCCESS;
-		
-	}
+	 /**
+     * Actioné»˜è®¤æ–¹æ³•ã€‚
+     */
+    public String execute() throws Exception
+    {
+            // è®¾ç½®åœ°åŒºï¼Œè¯­è¨€
+            ActionContext.getContext().setLocale(Locale.US);
+            showSubCate();
+            showReco();
+            showMain();
+            return SUCCESS;
+            
+    }
 
 }

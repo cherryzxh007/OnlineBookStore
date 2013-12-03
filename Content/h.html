@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Book Store</title>
+<link href="css/bootstrap-theme.min.css" rel="stylesheet">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="UI/css/mycss_main.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="UI/css/datepicker.css">
+<link href="UI/css/mycss_checkout.css" rel="stylesheet" type="text/css">
+<link href="css/bootstrap.css" rel="stylesheet">
+<!-- Bootstrap theme -->
+<!-- Custom styles for this template -->
+<script type="text/javascript" src="UI/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="UI/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="UI/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="UI/js/my_js.js"></script>
+
+<script>
+$(document).ready(function()
+{
+$(".pubDate").datepicker();
+});
+
+</script>
+
+</head>
+<body>
+	<div id="my_titlebar">
+		<div id="my_titlebar_left">
+			<img style="margin-left: 20px; margin-right: 20px"
+				src="images/title.png" />
+		</div>
+		<div id="my_titlebar_right">
+			<form>
+				<span class="label label-default">Manager Interface</span>
+			</form>
+		</div>
+		<div id="my_titlebar_middle">
+			<div id="my_titlebar_middle_up"></div>
+			<div id="my_titlebar_middle_center">
+				<form id="my_titlebar_searchform">
+					<div style="float: left">
+						<input id="my_titlebar_searchinput" type="text">
+					</div>
+					<div style="float: right">
+						<input id="my_titlebar_searchbutton" type="submit" value="">
+					</div>
+				</form>
+			</div>
+
+		</div>
+	</div>
+	<div id="category_title">
+		<div id="category_title_left">
+			<div>
+				<i>Manager</i>
+			</div>
+		</div>
+		<div id="category_title_right">
+			<ul style="margin-left: 30px; margin-top: 5px;" class="nav nav-tabs"
+				id="myTab">
+				<li><a href="#add" data-toggle="tab"
+					style="height: 50px; margin-top: -6px; font-size: 25px;"
+					class="active">Add Book</a></li>
+				<li><a href="#edit" data-toggle="tab"
+					style="height: 50px; margin-top: -6px; font-size: 25px;">Edit
+						Book</a></li>
+
+			</ul>
+		</div>
+	</div>
+	<div class="tab-content">
+		<div class="tab-pane active" id="add">
+			<div>
+				<input type="password" class="form-control" placeholder="ISBN"
+					style="margin-top: 20px; margin-left: 35px; width: 45%; float: left;"
+					required> <input type="password" class="form-control"
+					placeholder="Title"
+					style="margin-top: 20px; margin-left: 35px; width: 45%; float: left"
+					required>
+			</div>
+			<div>
+				<input type="password" class="form-control" placeholder="publisher"
+					style="margin-top: 20px; margin-left: 35px; width: 45%; float: left;"
+					required> <input type="password" class="form-control"
+					placeholder="author"
+					style="margin-top: 20px; margin-left: 35px; width: 45%; float: left"
+					required>
+			</div>
+			<div>
+				<input type="number" class="form-control" placeholder="edition"
+					style="margin-top: 20px; margin-left: 35px; width: 45%; float: left;"
+					required> <input type="number" class="form-control"
+					placeholder="quantity"
+					style="margin-top: 20px; margin-left: 35px; width: 45%; float: left;"
+					required>
+
+			</div>
+			<div>
+				<input type="password" class="form-control" placeholder="price"
+					style="margin-top: 20px; margin-left: 35px; width: 45%; float: left"
+					required> <input type="password" class="form-control"
+					placeholder="image"
+					style="margin-top: 20px; margin-left: 35px; width: 40%; float: left"
+					required>
+				<button type="button" class="btn btn-primary"
+					style="margin-top: 20px;">&nbspimage&nbsp</button>
+			</div>
+
+
+
+			<div>
+				<input type="password" class="form-control pubDate"
+					placeholder="Date"
+					style="margin-top: 20px; margin-left: 35px; width: 45%; float: left"
+					required> <input type="password" class="form-control"
+					placeholder="classfication"
+					style="margin-top: 20px; margin-left: 35px; width: 27%; float: left"
+					required>
+				<div class="btn-group" style="margin-top: 20px; margin-left: 20px;">
+					<button type="button" class="btn btn-primary dropdown-toggle"
+						data-toggle="dropdown">
+						&nbsp&nbsp&nbsp&nbspclass&nbsp&nbsp&nbsp&nbsp <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						<li><a href="#"></a></li>
+						<li><a href="#"></a></li>
+					</ul>
+				</div>
+				<div class="btn-group" style="margin-top: 20px; margin-left: 20px;">
+					<button type="button" class="btn btn-primary dropdown-toggle"
+						data-toggle="dropdown">
+						&nbsp&nbsp&nbsp&nbspclass&nbsp&nbsp&nbsp&nbsp <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						<li><a href="#">Dropdown link</a></li>
+						<li><a href="#">Dropdown link</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="panel panel-default">
+				<input type="password" class="form-control"
+					placeholder="Description"
+					style="margin-top: 20px; margin-left: 35px; width: 93%; height: 200px; float: left"
+					required>
+			</div>
+		</div>
+		<div class="tab-pane" id="edit">
+			<div id="main_page">
+				<div id="main_page_left">
+					<div id="category_list">
+						<div id="category_item_arts" class="category_item">
+							<div class="categroy_item_left" style="background-color: #b3c833"></div>
+							<div class="category_item_right">Arts</div>
+						</div>
+						<div class="category_item_content" align="left"
+							style="background-color: #b3c833;">
+							<div class="category_item_link">
+								<a>Decoration</a>
+							</div>
+							<div class="category_item_link">
+								<a>Fashion</a>
+							</div>
+							<div class="category_item_link">
+								<a>Music</a>
+							</div>
+							<div class="category_item_link">
+								<a>Photography</a>
+							</div>
+							<div class="category_item_link">
+								<a>Performing</a>
+							</div>
+							<div class="category_item_link">
+								<a>Sculpture</a>
+							</div>
+						</div>
+
+						<div id="category_item_children" class="category_item">
+							<div class="categroy_item_left" style="background-color: #ce5043"></div>
+							<div class="category_item_right">Children</div>
+						</div>
+						<div class="category_item_content" align="left"
+							style="background-color: #ce5043">
+							<div class="category_item_link">
+								<a>Baby</a>
+							</div>
+							<div class="category_item_link">
+								<a>Teens</a>
+							</div>
+							<div class="category_item_link">
+								<a>Comics</a>
+							</div>
+							<div class="category_item_link">
+								<a>Learning</a>
+							</div>
+							<div class="category_item_link">
+								<a>Games</a>
+							</div>
+						</div>
+
+						<div id="category_item_literature" class="category_item">
+							<div class="categroy_item_left" style="background-color: #fb8521"></div>
+							<div class="category_item_right">Literature</div>
+						</div>
+						<div class="category_item_content" align="left"
+							style="background-color: #fb8521">
+							<div class="category_item_link">
+								<a>Classiscs</a>
+							</div>
+							<div class="category_item_link">
+								<a>Contemporary</a>
+							</div>
+							<div class="category_item_link">
+								<a>Poetry</a>
+							</div>
+							<div class="category_item_link">
+								<a>Essays</a>
+							</div>
+							<div class="category_item_link">
+								<a>Erotica</a>
+							</div>
+							<div class="category_item_link">
+								<a>Genre Fiction</a>
+							</div>
+						</div>
+
+						<div id="category_item_social_science" class="category_item">
+							<div class="categroy_item_left" style="background-color: #1aa1e1"></div>
+							<div class="category_item_right">Social Science</div>
+						</div>
+						<div class="category_item_content" align="left"
+							style="background-color: #1aa1e1">
+							<div class="category_item_link">
+								<a>Anthropology</a>
+							</div>
+							<div class="category_item_link">
+								<a>Archaeology</a>
+							</div>
+							<div class="category_item_link">
+								<a>Laws</a>
+							</div>
+							<div class="category_item_link">
+								<a>Philosophy</a>
+							</div>
+							<div class="category_item_link">
+								<a>Politics</a>
+							</div>
+						</div>
+
+						<div id="category_item_health" class="category_item">
+							<div class="categroy_item_left" style="background-color: #5e5ca6"></div>
+							<div class="category_item_right">Life</div>
+						</div>
+						<div class="category_item_content" align="left"
+							style="background-color: #5e5ca6">
+							<div class="category_item_link">
+								<a>Medical</a>
+							</div>
+							<div class="category_item_link">
+								<a>Selp-Help</a>
+							</div>
+							<div class="category_item_link">
+								<a>Sports</a>
+							</div>
+							<div class="category_item_link">
+								<a>Travel</a>
+							</div>
+						</div>
+
+						<div id="category_item_technology" class="category_item">
+							<div class="categroy_item_left" style="background-color: #658092"></div>
+							<div class="category_item_right">Technology</div>
+						</div>
+						<div class="category_item_content" align="left"
+							style="background-color: #658092">
+							<div class="category_item_link">
+								<a>Architecture</a>
+							</div>
+							<div class="category_item_link">
+								<a>Automotive</a>
+							</div>
+							<div class="category_item_link">
+								<a>Computer</a>
+							</div>
+							<div class="category_item_link">
+								<a>Chemical</a>
+							</div>
+							<div class="category_item_link">
+								<a>Electronics</a>
+							</div>
+							<div class="category_item_link">
+								<a>Materials</a>
+							</div>
+							<div class="category_item_link">
+								<a>Programming</a>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div id="main_page_right">
+
+					<div class="check_out_title">
+						<span id="shipping_address" style="font-size: 15px;">hunger
+							game</span>
+						<button class="checkout_edit_btn" id="edit_button_address">Edit</button>
+					</div>
+					<div style="height: 50px; margin-top: -10px;">
+
+						<input type="password" class="form-control" placeholder="price"
+							style="margin-top: 20px; width: 30%; float: left" required>
+						<input type="password" class="form-control" placeholder="number"
+							style="margin-top: 20px; margin-left: 250px; width: 30%; float: left"
+							required>
+					</div>
+					<div class="check_out_title">
+						<span id="shipping_address" style="font-size: 15px;">hunger
+							game</span>
+						<button class="checkout_edit_btn" id="edit_button_address">Edit</button>
+					</div>
+					<div style="height: 50px; margin-top: -10px;">
+
+						<input type="password" class="form-control" placeholder="price"
+							style="margin-top: 20px; width: 30%; float: left" required>
+						<input type="password" class="form-control" placeholder="number"
+							style="margin-top: 20px; margin-left: 250px; width: 30%; float: left"
+							required>
+					</div>
+					<div class="check_out_title">
+						<span id="shipping_address" style="font-size: 15px;">hunger
+							game</span>
+						<button class="checkout_edit_btn" id="edit_button_address">Edit</button>
+					</div>
+					<div style="height: 50px; margin-top: -10px;">
+
+						<input type="password" class="form-control" placeholder="price"
+							style="margin-top: 20px; width: 30%; float: left" required>
+						<input type="password" class="form-control" placeholder="number"
+							style="margin-top: 20px; margin-left: 250px; width: 30%; float: left"
+							required>
+					</div>
+					<div class="check_out_title">
+						<span id="shipping_address" style="font-size: 15px;">hunger
+							game</span>
+						<button class="checkout_edit_btn" id="edit_button_address">Edit</button>
+					</div>
+					<div style="height: 50px; margin-top: -10px;">
+
+						<input type="password" class="form-control" placeholder="price"
+							style="margin-top: 20px; width: 30%; float: left" required>
+						<input type="password" class="form-control" placeholder="number"
+							style="margin-top: 20px; margin-left: 250px; width: 30%; float: left"
+							required>
+					</div>
+					<div class="check_out_title">
+						<span id="shipping_address" style="font-size: 15px;">hunger
+							game</span>
+						<button class="checkout_edit_btn" id="edit_button_address">Edit</button>
+					</div>
+					<div style="height: 50px; margin-top: -10px;">
+
+						<input type="password" class="form-control" placeholder="price"
+							style="margin-top: 20px; width: 30%; float: left" required>
+						<input type="password" class="form-control" placeholder="number"
+							style="margin-top: 20px; margin-left: 250px; width: 30%; float: left"
+							required>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+</div>
+		<script>
+  $(function () {
+    $('#myTab a:last').tab('show')
+  })
+  $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+  e.target // activated tab
+  e.relatedTarget // previous tab
+})
+</script>
+</body>
+</html>
+
+
+
+

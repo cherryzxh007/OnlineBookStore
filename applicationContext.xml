@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+	<!-- 定义数据源Bean，使用C3P0数据源实现 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<!-- 指定连接数据库的驱动 -->
+		<property name="driverClass" value="org.postgresql.Driver"/>
+		<!-- 指定连接数据库的URL -->
+		<property name="jdbcUrl" value="jdbc:postgresql://localhost/BookStore"/>
+		<!-- 指定连接数据库的用户名 -->
+		<property name="user" value="postgres"/>
+		<!-- 指定连接数据库的密码 -->
+		<property name="password" value="love"/>
+		<!-- 指定连接数据库连接池的最大连接数 -->
+		<property name="maxPoolSize" value="40"/>
+		<!-- 指定连接数据库连接池的最小连接数 -->
+		<property name="minPoolSize" value="1"/>
+		<!-- 指定连接数据库连接池的初始化连接数 -->
+		<property name="initialPoolSize" value="1"/>
+		<!-- 指定连接数据库连接池的连接的最大空闲时间 -->
+		<property name="maxIdleTime" value="20"/>
+	</bean>
+<!-- 获取Publisher列表的bean 
+    -->
+    <bean id="getPublisher" class="org.chen.util.GetPublisher">
+    <!-- 指定jdbcTemplate -->
+        <property name="jt" ref="jdbcTemplate"></property>
+    </bean>
+<!-- 获取Author列表的bean -->    
+    <bean id="getAuthor" class="org.chen.util.GetAuthor">
+        <property name="jt" ref="jdbcTemplate"></property>
+    </bean>
+<!-- Spring jdbc 抽象框架 -->    
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+       <property name="dataSource" ref="dataSource"></property>
+    </bean>
+<!-- 添加书 Dao -->    
+    <bean id="addBookDao" class="org.chen.Dao.AddBookDao">
+       <property name="jt" ref="jdbcTemplate"></property> 
+    </bean>  
+<!-- Publisher Dao -->  
+    <bean id="publisherDao" class="org.chen.Dao.PublisherDao">
+       <property name="jt" ref="jdbcTemplate"></property>
+    </bean>
+<!-- Author Dao -->    
+    <bean id="authorDao" class="org.chen.Dao.AuthorDao">
+       <property name="jt" ref="jdbcTemplate"></property>
+    </bean>
+    
+    
+<!-- 地址dao -->
+    <bean id="addressDao" class="org.chen.Dao.AddressDao">
+       <property name="jt" ref="jdbcTemplate"></property>
+    </bean>
+<!-- 图书分类 Dao -->    
+    <bean id="cateDao" class="org.chen.Dao.CategoryDao"> 
+       <property name="jt" ref="jdbcTemplate"></property>
+       <property name="basicBookDao" ref="basicBookDao"></property>
+    </bean>
+<!-- book_author Dao -->
+    <bean id="bookAuthorDao" class="org.chen.Dao.BookAuthorDao">
+        <property name="jt" ref="jdbcTemplate"></property>
+    </bean>  
+<!-- 推荐图书的Dao
+采用了工厂模式，可自由切换
+ -->    
+    <bean id="recoDao" class="org.chen.Dao.GetRandomReco">
+       <property name="jt" ref="jdbcTemplate"></property>
+    </bean>
+    
+<!-- 
+基本的Book操作Dao,可能和其他类功能有重合
+ -->
+   <bean id="basicBookDao" class="org.chen.Dao.BasicBookDao">
+       <property name="jt" ref="jdbcTemplate"></property>
+       <property name="publisherDao" ref="publisherDao"></property>
+       <property name="customerDao" ref="userDao"></property>
+   </bean>
+<!-- 操作用户的Dao -->
+   <bean id="userDao" class="org.chen.Dao.CustomerDao">
+       <property name="jt" ref="jdbcTemplate"></property>
+   </bean>   
+<!-- 获取广告页图片id的bean,采用接口设计，可配置成其他。 -->
+   <bean id="getAd" class="org.chen.util.GetAdByDay">
+   </bean>
+<!-- 获取相似书的bean,采用接口设计,可配置成其他 -->
+   <bean id="getSimilar" class="org.chen.util.GetSimilarBooksByCate">
+       <property name="randomReco" ref="recoDao"></property>
+   </bean>
+<!-- 显示购物车信息的bean -->
+   <bean id="displayCart" class="org.chen.util.DisplayCart">
+     <property name="basicBookDao" ref="basicBookDao"></property>
+   </bean>
+<!-- 获取首页Block的bean --> 
+   <bean id="getBlock" class="org.chen.util.GetIndexBlock">
+       <property name="basicBookDao" ref="basicBookDao"></property>
+   </bean>
+<!-- 获取送货方式 -->
+   <bean id="deliveryDao" class="org.chen.Dao.DeliveryDao">
+       <property name="jt" ref="jdbcTemplate"></property>
+   </bean>
+<!-- bookOrder的Dao -->
+   <bean id="bookOrderDao" class="org.chen.Dao.BookOrderDao">
+       <property name="jt" ref="jdbcTemplate"></property>
+   </bean>
+ <!-- 使用 spring 管理的action实例：getPublisher -->   
+    <bean id="GetPublisher" class="org.chen.action.AjaxAction"
+     scope="prototype">
+       <property name="publisher" ref="getPublisher"></property>
+       <property name="author" ref="getAuthor"></property>
+    </bean>
+  <!-- 使用 spring 管理的action实例： addBook-->  
+  <bean id="addBook" class="org.chen.action.AddBookAction"
+     scope="prototype">
+      <property name="addBookDao" ref="addBookDao"></property>
+      <property name="pubDao" ref="publisherDao"></property>
+      <property name="authorDao" ref="authorDao"></property>
+      <property name="bookAuthorDao" ref="bookAuthorDao"></property>
+  </bean>
+</beans>
