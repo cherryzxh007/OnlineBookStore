@@ -147,4 +147,21 @@
         </result>
    </action>
 </package>
+<!-- 新建一个包，存放有json插件的action -->
+   <package name="jsonAjax" extends="json-default">
+      <!-- 管理员搜索结果,ajax实现 -->
+     <action name="adminSearch" class="org.chen.action.AdminAjaxAction">
+        <result type="json">
+           <param name="noCache">true</param>
+           <param name="contentType">text/html</param>
+        </result>
+     </action>  
+     <action name="adminEdit" class="org.chen.action.EditBookAction">
+        <result type="json">
+          <param name="noCache">true</param>
+          <param name="contentType">text/html</param>
+        </result>
+     
+     </action>
+   </package>
 </struts>

@@ -25,8 +25,6 @@
 		xmlhttp.onreadystatechange = function() {
 			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 			    $('#cartNum').html(xmlhttp.responseText);
-				var test = "<%=session.getAttribute("MyCartNum")%>";
-				console.log('test',test);
 			}
 		};
 		xmlhttp.open("GET", "addCartAction?isbn="+isbn, true);

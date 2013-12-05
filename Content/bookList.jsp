@@ -21,7 +21,23 @@
         <div id="main_page_right">
             <div id="content_books">
             	<div style="height:40px; width:200px"></div>  
+            	
+                <s:if test="hasResult==false">
+                 <div class="search_result" style="width: 500px">
+                   <div class="alert alert-success alert-dismissable">
+                   <button type="button" class="close" 
+                   data-dismiss="alert" aria-hidden="true">&times;</button>
+                   <span class="glyphicon glyphicon-paperclip"></span>
+                   Sorry, we cannot find what you want.<br/>
+                   You can try other key words or
+                   go back our 
+                   <s:url action="index" id="indexLink"></s:url>
+               <s:a href="%{indexLink}" cssClass="alert-link"> index page</s:a>.
+                   </div>
+                   </div>
+                </s:if>
                 
+                <s:else>
                      <s:iterator value="blocks" id="singleBlock">
                         <div class="search_result">
                           <s:iterator value="#singleBlock.books">
@@ -46,11 +62,11 @@
                           </s:iterator>
                         
                         </div>
-                     </s:iterator>
+                     </s:iterator>       	
                   	
-                  	
-                  	
-                             	                    
+                <!-- end of iterator -->    
+                </s:else>
+                              	                    
             </div>
             
             <div id="footer">

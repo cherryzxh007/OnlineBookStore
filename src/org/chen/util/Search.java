@@ -51,12 +51,12 @@ public class Search {
         
         Query query = null;  
         try {  
-            query = queryParser.parse("title:"+value);   
+            query = queryParser.parse("title:"+value+"~");   
         } catch (ParseException e) {  
             e.printStackTrace();  
         }    
         //we get what we want in the topdocs
-        TopDocs topDocs = indexSearcher.search(query, 5);    
+        TopDocs topDocs = indexSearcher.search(query, 25);    
         System.out.println("一共查到:" + topDocs.totalHits + "记录");  
         //ScoreDoc[] scoreDoc = topDocs.scoreDocs;    
  for(int i=0;i<topDocs.scoreDocs.length;i++)

@@ -52,7 +52,10 @@
        <property name="jt" ref="jdbcTemplate"></property>
     </bean>
     
-    
+<!-- 管理员事务的dao -->  
+    <bean id="adminDao" class="org.chen.Dao.AdminDao">
+       <property name="jt" ref="jdbcTemplate"></property>
+    </bean>
 <!-- 地址dao -->
     <bean id="addressDao" class="org.chen.Dao.AddressDao">
        <property name="jt" ref="jdbcTemplate"></property>
@@ -107,19 +110,24 @@
 <!-- bookOrder的Dao -->
    <bean id="bookOrderDao" class="org.chen.Dao.BookOrderDao">
        <property name="jt" ref="jdbcTemplate"></property>
+       <property name="basicBookDao" ref="basicBookDao"></property>
+   </bean>
+<!-- search bean -->
+   <bean name="buildIndex" class="org.chen.util.BuildIndex">
+      <property name="basicBookDao" ref="basicBookDao"></property>
    </bean>
  <!-- 使用 spring 管理的action实例：getPublisher -->   
-    <bean id="GetPublisher" class="org.chen.action.AjaxAction"
+  <!--   <bean id="GetPublisher" class="org.chen.action.AjaxAction"
      scope="prototype">
        <property name="publisher" ref="getPublisher"></property>
        <property name="author" ref="getAuthor"></property>
-    </bean>
+    </bean> -->
   <!-- 使用 spring 管理的action实例： addBook-->  
-  <bean id="addBook" class="org.chen.action.AddBookAction"
+<!--   <bean id="addBook" class="org.chen.action.AddBookAction"
      scope="prototype">
       <property name="addBookDao" ref="addBookDao"></property>
       <property name="pubDao" ref="publisherDao"></property>
       <property name="authorDao" ref="authorDao"></property>
       <property name="bookAuthorDao" ref="bookAuthorDao"></property>
-  </bean>
+  </bean> -->
 </beans>

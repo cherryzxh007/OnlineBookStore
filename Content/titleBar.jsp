@@ -7,9 +7,12 @@
         <!-- 登录，退出表单 -->
         	<form action="logoutAction" method="post" id="signinForm">
             	<s:if test="#session.loginFlag==true && #session.theUser!=null">
-            	  <a href="#">
+            	  <s:url action="spaceAction" id="spaceLink">
+            	      <s:param name="userid">${session.theUser.id}</s:param>
+            	  </s:url>
+            	  <s:a href="%{spaceLink}">
             	   <img src="${session.theUser.iconPath}" width="30" height="30" style="margin-right:10px; margin-bottom:25px"/>
-            	  </a>
+            	  </s:a>
             	 <button type="submit" class="btn btn-primary">Sign Out</button>
             	</s:if>
             	<s:else>
@@ -67,12 +70,12 @@
         	<div id="my_titlebar_middle_up"></div>
             <div id="my_titlebar_middle_center">
             <!-- 搜索表单 -->
-            	<form action="" id="my_titlebar_searchform">
+            	<form action="searchItem" id="my_titlebar_searchform">
                 	<div style="float:left">
-                    	<input id="my_titlebar_searchinput" type="text" class="form-control">
+                    	<input id="my_titlebar_searchinput" type="text" class="form-control" name="item">
                     </div>
                     <div style="float:right">
-                    	<input id="my_titlebar_searchbutton" type="submit" value="">
+                    	<button id="my_titlebar_searchbutton" type="submit"></button>
                     </div>    
                 </form>
             </div>

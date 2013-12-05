@@ -1,5 +1,7 @@
 package org.chen.Dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -12,10 +14,11 @@ import org.chen.table.Book;
 import org.chen.table.Rating;
 import org.chen.util.BookConstont;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowCallbackHandler;
 
 /**
- * Book��ػ�Dao
+ * 
  * @author ChenZhongPu
  *
  */
@@ -228,5 +231,79 @@ public class BasicBookDao {
 			books.add(book);
 		}
 		return books;
+	}
+	/**
+	 * 利用isbn获取管理员所需图书信息
+	 * @param isbn
+	 * @return
+	 */
+	public Book getAdminBook(final String isbn)
+	{
+		
+		 final Book book = new Book();
+		jt.query("select coverimage_path,price,stock_qty from book where isbn=?", 
+				new Object[]{isbn},
+				new RowCallbackHandler(){
+					@Override
+					public void processRow(ResultSet rs) throws SQLException {
+					
+						book.setIsbn(isbn);
+						book.setImgPath(rs.getString("coverimage_path"));
+						book.setPrice(rs.getFloat("price"));
+						book.setStock_qty(rs.getInt("stock_qty"));	
+					}
+		});
+		return book;
+	}
+	/**
+	 * 利用isbn查看该书是否在数据库
+	 * @param isbn
+	 * @return
+	 */
+	public boolean isHas(String isbn)
+	{
+		int rows = jt.queryForInt("select Count(*) from book where isbn=?",
+				new Object[]{isbn});
+		if(rows>0) return true;
+		return false;
+	}
+	
+	/**
+	 * 管理员修改图书的价格和库存
+	 * @param isbn
+	 * @param price
+	 * @param amount
+	 */
+	public void modify(final String isbn, final float price,final int amount)
+	{
+		jt.update(new PreparedStatementCreator(){
+
+			@Override
+			public PreparedStatement createPreparedStatement(Connection con)
+					throws SQLException {
+				String sql = "update book set price=?,stock_qty=? where isbn=?";
+				PreparedStatement ps = con.prepareStatement(sql);
+				ps.setFloat(1, price);
+				ps.setFloat(2, amount);
+				ps.setString(3, isbn);
+				return ps;
+			}
+	  });
+	}
+	/**
+	 * 本方法有待改进。
+	 * 删除一本书及相关记录
+	 * @param isbn
+	 */
+	public void deleBook(final String isbn)
+	{
+		jt.update(new PreparedStatementCreator(){
+
+			@Override
+			public PreparedStatement createPreparedStatement(Connection arg0)
+					throws SQLException {
+				
+				return null;
+			}});
 	}
 }
