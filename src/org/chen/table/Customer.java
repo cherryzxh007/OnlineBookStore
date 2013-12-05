@@ -14,6 +14,29 @@ public class Customer {
 	private String phone;
 	private String iconPath;
 	
+	private String fDis;
+	private String fAdd;
+	private String zipCodeS;
+	
+	
+	public String getfDis() {
+		return fDis==null?"":fDis;
+	}
+	public void setfDis(String fDis) {
+		this.fDis = fDis;
+	}
+	public String getfAdd() {
+		return fAdd==null?"":fAdd;
+	}
+	public void setfAdd(String fAdd) {
+		this.fAdd = fAdd;
+	}
+	public String getZipCodeS() {
+		return zipCodeS==null?"":fDis;
+	}
+	public void setZipCodeS(String zipCodeS) {
+		this.zipCodeS = zipCodeS;
+	}
 	/**
 	 * 
 	 * @return

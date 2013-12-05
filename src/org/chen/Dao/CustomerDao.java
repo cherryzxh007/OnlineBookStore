@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
+import org.apache.naming.java.javaURLContextFactory;
 import org.chen.table.Customer;
 import org.chen.util.BookConstont;
 import org.chen.util.EncryptPwd;
@@ -104,6 +106,10 @@ public class CustomerDao {
 						customer.setPhone(rs.getString("customer_phone"));
 						customer.setEmail(email);
 						customer.setId(rs.getInt("customer_id"));
+						int id = customer.getId();
+						String address = jt.queryForObject("select fulladdress from address where customer_id=? offset 0 limit 1",
+							 new Object[]{id}, java.lang.String.class);
+						
 					}
 			
 		});
@@ -125,5 +131,6 @@ public class CustomerDao {
 				java.lang.String.class);
 		return name;
 	}
+	
 	
 }

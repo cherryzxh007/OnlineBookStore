@@ -4,14 +4,12 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * ��ݿ��Book�����ӳ��
+ * 
  * @author ChenZhongPu
  *
  */
 public class Book implements Serializable{
-	/**
-	 * isbn , title�Ǳ�������
-	 */
+	
 	private  String isbn;
 	private  String title;
 	private int publisher_id;

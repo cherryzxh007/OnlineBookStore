@@ -5,11 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.chen.table.Book;
 import org.chen.table.BookOrder;
 import org.chen.table.Customer;
+import org.chen.table.DisplayOrder;
 import org.chen.util.GetCurrentTime;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -23,6 +26,17 @@ public class BookOrderDao {
 
 	private JdbcTemplate jt;
 
+	private BasicBookDao basicBookDao;
+	
+	public BasicBookDao getBasicBookDao() {
+		return basicBookDao;
+	}
+	public void setBasicBookDao(BasicBookDao basicBookDao) {
+		this.basicBookDao = basicBookDao;
+	}
+	public JdbcTemplate getJt() {
+		return jt;
+	}
 	public void setJt(JdbcTemplate jt) {
 		this.jt = jt;
 	}
@@ -79,5 +93,38 @@ public class BookOrderDao {
 			});
 		}
 		
+	}
+	
+	/**
+	 * 用于个人页面显示订单
+	 * @param id
+	 * @return
+	 */
+	@SuppressWarnings("rawtypes")
+	public List<DisplayOrder> getOrdersByCusId(int id)
+	{
+		basicBookDao.getIndexBookByIsbn("1118504224");
+		List<DisplayOrder> bookOrders = new ArrayList<DisplayOrder>();
+		
+		List rows = jt.queryForList("select * from order_book where customer_id=?",
+				new Object[]{id});
+		Iterator iterator = rows.iterator();
+		while(iterator.hasNext())
+		{
+			DisplayOrder displayOrder = new DisplayOrder();
+			Map map = (Map) iterator.next();
+			String isbn = map.get("isbn").toString();
+			System.out.println(isbn);
+			displayOrder.setBook(basicBookDao.getIndexBookByIsbn(isbn));
+			displayOrder.setStatus(map.get("order_status").toString());
+			//displayOrder.setTimestamp((Timestamp) map.get("order_time"));
+			Timestamp timestamp = (Timestamp) map.get("order_time");
+			displayOrder.setTimestamp(timestamp.getMonth()+"/"+timestamp.getDay()+", "
+					+timestamp.getYear());
+			bookOrders.add(displayOrder);
+			
+		}
+		
+		return bookOrders;
 	}
 }

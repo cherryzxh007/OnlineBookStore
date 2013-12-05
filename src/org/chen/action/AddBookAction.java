@@ -15,11 +15,11 @@ public class AddBookAction extends ActionSupport {
 	private AuthorDao authorDao;
 	private BookAuthorDao bookAuthorDao;
 	/**
-	 * 利用OGNL完成类型转换
+	 * 
 	 */
     private Book book;
     /**
-     * 需得到publisher，author的id
+     * 
      */
     private String publisher;
     private String author;
@@ -66,28 +66,27 @@ public class AddBookAction extends ActionSupport {
 		this.author = author;
 	}
 /**
- * 添加书的主逻辑
+ * 
  */
 	public String execute() throws Exception{
 		try{
 		
 			if(!pubDao.isContains(publisher))
 			{
-				// 如果数据库里不存在该出版社，添加
+				
 				pubDao.add(publisher);
 			}
 			
-			// 设置所添加书的出版社的id
+			
 			getBook().setPublisher_id(pubDao.getIdbyName(publisher));
 			
 			if(!authorDao.isContains(author))
 			{
-				// 如果数据库里不存在该作者，添加
+				
 				authorDao.add(author);
 			}
-			// 向book表添加数据
+			
 			addBookDao.add(book);
-			//向书_作者联系表里添加数据
 			bookAuthorDao.add(authorDao.getIdByName(author), book.getIsbn());	
 			return SUCCESS;
 		}catch(Exception e)

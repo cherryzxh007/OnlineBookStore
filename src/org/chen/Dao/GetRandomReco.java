@@ -8,7 +8,7 @@ import java.util.Map;
 import org.chen.table.Book;
 import org.springframework.jdbc.core.JdbcTemplate;
 /**
- * 具体类，采用随机获取方式得到推荐图书
+ * 
  * @author ChenZhongPu
  *
  */

@@ -9,38 +9,55 @@ import org.chen.util.GetPublisher;
 
 import com.opensymphony.xwork2.ActionSupport;
 /**
- * ����Ajax�¼�
+ * 
  * @author ChenZhongPu
  *
  */
 public class AjaxAction extends ActionSupport {
-      private GetPublisher publisher;
-      private GetAuthor author;
+      private GetPublisher getPublisher;
+      private GetAuthor getAuthor;
       private InputStream inStream;
-	  public void setPublisher(GetPublisher publisher) {
-		this.publisher = publisher;
-	}
-	  
-	public void setAuthor(GetAuthor author) {
-		this.author = author;
+       
+
+	public GetPublisher getGetPublisher() {
+		return getPublisher;
 	}
 
+	public void setGetPublisher(GetPublisher getPublisher) {
+		this.getPublisher = getPublisher;
+	}
+
+	public GetAuthor getGetAuthor() {
+		return getAuthor;
+	}
+
+	public void setGetAuthor(GetAuthor getAuthor) {
+		this.getAuthor = getAuthor;
+	}
+
+	public InputStream getInStream() {
+		return inStream;
+	}
+
+	public void setInStream(InputStream inStream) {
+		this.inStream = inStream;
+	}
 
 	/**
-	 * ����Ajax�����publisher�ֽ���
-	 * @return inputsteam
+	 * 
+	 * @return
 	 */
 	public InputStream getResult() {
 		return inStream;
 	}
 
   /**
-   * Ĭ�Ϸ�������ȡPublisher�б�  
+   * 
    */
 	public String execute() throws Exception
 	{
-		String publisheList = publisher.getPublisherList();
-		publisheList+="#"+author.getAuthorList();
+		String publisheList = getPublisher.getPublisherList();
+		publisheList+="#"+getAuthor.getAuthorList();
 		inStream = new ByteArrayInputStream(publisheList.getBytes());
 		
 		return SUCCESS;

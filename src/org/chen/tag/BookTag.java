@@ -9,9 +9,7 @@ import org.chen.table.Book;
 import org.springframework.web.servlet.tags.RequestContextAwareTag;
 
 /**
- * 自定义标签类，
- * 得到首页模块的书的信息。
- * isbn，价格，标题，图片路径
+ * 
  * @author ChenZhongPu
  *
  */

@@ -65,8 +65,8 @@ public class BasicBookDao {
 		
 	}
 	/**
-	 * ͨ��ISBN��ȡ��ҳ���������Ϣ,
-	 * isbn,ͼƬ·�����۸�
+	 * 
+	 * @param isbn
 	 * @return
 	 */
 	public Book getIndexBookByIsbn(final String isbn)
@@ -90,8 +90,7 @@ public class BasicBookDao {
 	}
 	
 	/**
-	 * ����isbn��ȡbook�����飻
-	 * ���鱾����ҳ����չʾ��
+	 * 
 	 * @param isbn
 	 * @return
 	 */
@@ -134,7 +133,7 @@ public class BasicBookDao {
 	}
 	
 	/**
-	 * ����isbn����ݿ����ͼ��ȡ�����������Ϣ
+	 * 
 	 * @param isbn
 	 * @return
 	 */
@@ -208,4 +207,26 @@ public class BasicBookDao {
 		
 	}
 	
+	/**
+	 * 获得所有书用于建立索引
+	 * @return
+	 */
+	public List<Book> getAllBooks()
+	{
+		List<Book> books = new ArrayList<Book>();
+		List rows = jt.queryForList("select * from book");
+		Iterator iterator = rows.iterator();
+		while(iterator.hasNext())
+		{
+			Book book = new Book();
+			Map map = (Map) iterator.next();
+			book.setIsbn(map.get("isbn").toString());
+			book.setImgPath(map.get("coverimage_path").toString());
+			book.setIntro(map.get("book_intro").toString());
+			book.setPrice((float) map.get("price"));
+			book.setTitle(map.get("title").toString());
+			books.add(book);
+		}
+		return books;
+	}
 }
